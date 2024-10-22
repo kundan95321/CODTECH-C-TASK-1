@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+#define TOTAL_QUESTIONS 3
+
+// Structure to hold question and answer options
+typedef struct {
+    char question[256];
+    char options[4][100];
+    char answer; // Correct answer option (A, B, C, D)
+} Question;
+
+void displayQuestion(Question q) {
+    printf("%s\n", q.question);
+    printf("A. %s\n", q.options[0]);
+    printf("B. %s\n", q.options[1]);
+    printf("C. %s\n", q.options[2]);
+    printf("D. %s\n", q.options[3]);
+}
+
+int main() {
+    Question quiz[TOTAL_QUESTIONS] = {
+        {"What is the capital of France?", {"Berlin", "Madrid", "Paris", "Rome"}, 'C'},
+        {"Which planet is known as the Red Planet?", {"Earth", "Mars", "Jupiter", "Saturn"}, 'B'},
+        {"What is the largest ocean on Earth?", {"Atlantic", "Indian", "Arctic", "Pacific"}, 'D'}
+    };
+
+    char userAnswer;
+    int score = 0;
+
+    printf("Welcome to the Quiz Game!\n");
+
+    for (int i = 0; i < TOTAL_QUESTIONS; i++) {
+        displayQuestion(quiz[i]);
+        printf("Your answer (A/B/C/D): ");
+        scanf(" %c", &userAnswer);
+
+        // Convert answer to uppercase for consistency
+        userAnswer = toupper(userAnswer);
+
+        if (userAnswer == quiz[i].answer) {
+            printf("Correct!\n");
+            score++;
+        } else {
+            printf("Wrong! The correct answer was %c.\n", quiz[i].answer);
+        }
+        printf("\n");
+    }
+
+    printf("Your total score: %d out of %d\n", score, TOTAL_QUESTIONS);
+    return 0;
+}
